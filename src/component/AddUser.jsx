@@ -7,14 +7,14 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button, ButtonGroup,
+  Button,
   FormControl,
   FormLabel,
   Input,
   useDisclosure
 } from "@chakra-ui/react";
 
-function InitialFocus() {
+function AddStaff() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef();
@@ -58,4 +58,4 @@ function InitialFocus() {
   );
 }
 
-export default InitialFocus;
+export default AddStaff;
