@@ -1,17 +1,20 @@
-import logo from "../logo.svg";
-import { Button, ButtonGroup, Container } from "@chakra-ui/react";
+
+import { Button, Container } from "@chakra-ui/react";
+import { Link, withRouter } from "react-router-dom";
+import {  useSelector } from "react-redux";
 import AddUser from "../component/AddUser";
 import Users from "../component/Users";
-import { Link, withRouter } from "react-router-dom";
 
-function App() {
+function Home() {
+  const {staffs} = useSelector(state => state.staffsStore);
+
   return (
     <Container pt={10}>
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
+  
       <AddUser />
       <Users />
       <Link to="/report">
-        <Button colorScheme="teal" size="sm" mt={5}>
+        <Button colorScheme="teal" size="sm" mt={5} disabled={staffs.length<5}>
           Generate Report
         </Button>
       </Link>
@@ -19,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(Home);

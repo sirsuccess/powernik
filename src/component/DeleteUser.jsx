@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import { useDispatch } from "react-redux";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -7,17 +8,39 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
-} from "@chakra-ui/react"
+  useToast,
+} from "@chakra-ui/react";
+import { deleteStaffRequest } from "../store/staffs/actions";
 
-function DeleteStaff() {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const onClose = () => setIsOpen(false)
-  const cancelRef = React.useRef()
+function DeleteStaff(props) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef();
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const handleDelete = () => {
+    dispatch(deleteStaffRequest(props.id));
+    toast({
+      title: "Success.",
+      description: `You have delete ${props.name}`,
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    onClose();
+  };
 
   return (
     <>
-      <Button colorScheme="red" size="sm" mt={2} ml={5} onClick={() => setIsOpen(true)}>
-        Delete 
+      <Button
+        colorScheme="red"
+        size="sm"
+        mt={2}
+        ml={5}
+        onClick={() => setIsOpen(true)}
+      >
+        Delete
       </Button>
 
       <AlertDialog
@@ -32,14 +55,14 @@ function DeleteStaff() {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure, you want to delete Amani Kanu?.
+              Are you sure, you want to delete {props.name}?.
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
                 No, Cancel
               </Button>
-              <Button colorScheme="red" onClick={onClose} ml={3}>
+              <Button colorScheme="red" onClick={handleDelete} ml={3}>
                 Yes, Delete
               </Button>
             </AlertDialogFooter>
@@ -47,7 +70,7 @@ function DeleteStaff() {
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  )
+  );
 }
 
 export default DeleteStaff;

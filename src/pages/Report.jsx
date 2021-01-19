@@ -11,11 +11,14 @@ import {
   Container,
   IconButton,
 } from "@chakra-ui/react";
-import users from "../utills/users";
 import { Link, withRouter } from "react-router-dom";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import {  useSelector } from "react-redux";
+import { formatCurrency, totalBonus } from "../utills";
+
 
 function Report(props) {
+    const {staffs} = useSelector(state => state.staffsStore);
   return (
     <Container maxW="xl" pt={5} centerContent="true">
       <IconButton
@@ -44,7 +47,7 @@ function Report(props) {
           </Tr>
         </Thead>
         <Tbody>
-          {users.map((user) => (
+          {staffs.map((user) => (
             <Tr>
               <Td>
                 <Avatar
@@ -57,9 +60,12 @@ function Report(props) {
               {user.workDays.map((day) => (
                 <Td isNumeric>{Object.values(day)[0]}</Td>
               ))}
-              <Td isNumeric>25.4</Td>
+              <Td isNumeric>{formatCurrency(totalBonus(user.workDays))}</Td>
               <Td isNumeric>
-                <Link to={`/report/${user.firstName}`}>
+                <Link to={{
+                      pathname: `/report/${user?.firstName}`,
+                      state: user,
+                    }}>
                   <Button colorScheme="teal" size="sm" mt={2} ml={5}>
                     Report
                   </Button>
