@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import users from "../utills/users";
 import { Link, withRouter } from "react-router-dom";
-import { ChevronLeftIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 // Sample card from Airbnb
 
 function AirbnbExample(props) {
@@ -36,13 +36,12 @@ function AirbnbExample(props) {
   return (
     <Container pt={5}>
       <IconButton
-       colorScheme="teal"
-       aria-label="Call Segun"
-       size="lg"
-       icon={<ChevronLeftIcon />}
-    //    onClick={()=>props.history.back()}
-    onClick={props.history.goBack}
-       mb={5}
+        colorScheme="teal"
+        aria-label="Call Segun"
+        size="lg"
+        icon={<ChevronLeftIcon />}
+        onClick={props.history.goBack}
+        mb={5}
       />
       <Box
         maxW="md"
@@ -51,8 +50,9 @@ function AirbnbExample(props) {
         overflow="hidden"
         bg="white"
         color="black"
+        centerContent="true"
       >
-        <Avatar size="2xl" src={users[0].avatar} alt={property.imageAlt} />
+        <Avatar size="2xl" ml={5} mt={5} src={users[0].avatar} alt={property.imageAlt} />
 
         <Box p="6">
           <Box d="flex" alignItems="baseline">
