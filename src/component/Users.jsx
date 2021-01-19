@@ -9,21 +9,33 @@ import {
   Avatar,
   Wrap,
   Button,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
-import users from "../utills/users";
 import { Link } from "react-router-dom";
-import AddTime from "../component/AddTime2";
+import { useSelector } from "react-redux";
+
+import AddTime from "./AddTime";
 import DeleteUser from "../component/DeleteUser";
 
-function Users(params) {
+function Users(props) {
+  const { staffs } = useSelector((state) => state.staffsStore);
+  if (staffs.length < 1) {
+    return (
+      <Alert status="info" mt={10}>
+        <AlertIcon />
+        No staff yet. Click on "Add Staff" Button to add staff
+      </Alert>
+    );
+  }
   return (
     <div>
       <Accordion allowToggle>
-        {users.map((user) => (
+        {staffs.map((user) => (
           <AccordionItem>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                {user.firstName} {user.lastName}
+                {user?.firstName} {user?.lastName}
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -31,27 +43,25 @@ function Users(params) {
               <Wrap>
                 <WrapItem mr={5}>
                   <Avatar
-                    name={`${user.firstName} ${user.lastName}`}
-                    src={user.avatar}
+                    name={`${user?.firstName} ${user?.lastName}`}
+                    src={user?.avatar}
                   />
                 </WrapItem>
                 <WrapItem>
-                  {/* {user.workDays.map((day) => (
-                    // console.log("day", Object.values(day)[0])
-                    <WrapItem>
-                      <div>{Object.keys(day)[0]}</div>
-                      {Object.values(day)[0]}
-                    </WrapItem>
-                  ))} */}
-                  <DeleteUser/>
-                  {/* <Button colorScheme="red" size="sm" mt={2} ml={5}>
-                    Delete
-                  </Button> */}
-                  {/* <Button colorScheme="blue" size="sm" mt={2} ml={5}>
-                    Add Time
-                  </Button> */}
-                  <AddTime />
-                  <Link to={`/report/${user.firstName}`}>
+                  <DeleteUser
+                    id={user?.id}
+                    name={`${user?.firstName} ${user?.lastName}`}
+                  />
+                  <AddTime
+                    id={user?.id}
+                    name={`${user?.firstName} ${user?.lastName}`}
+                  />
+                  <Link
+                    to={{
+                      pathname: `/report/${user?.firstName}`,
+                      state: user,
+                    }}
+                  >
                     <Button colorScheme="teal" size="sm" mt={2} ml={5}>
                       Report
                     </Button>
