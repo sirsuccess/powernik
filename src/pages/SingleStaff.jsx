@@ -16,23 +16,13 @@ import {
   EmailIcon,
   PhoneIcon,
 } from "@chakra-ui/react";
-import users from "../utills/users";
 import { Link, withRouter } from "react-router-dom";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-// Sample card from Airbnb
+import { convertTimeToBonus, formatCurrency, totalBonus } from "../utills";
 
 function AirbnbExample(props) {
-  const property = {
-    imageUrl: "https://bit.ly/2Z4KKcF",
-    imageAlt: "Rear view of modern home with pool",
-    beds: 3,
-    baths: 2,
-    title: "Modern home in city center in the heart of historic Los Angeles",
-    formattedPrice: "$1,900.00",
-    reviewCount: 34,
-    rating: 4,
-  };
-
+  const staff = props.location.state;
+  
   return (
     <Container pt={5}>
       <IconButton
@@ -52,23 +42,19 @@ function AirbnbExample(props) {
         color="black"
         centerContent="true"
       >
-        <Avatar size="2xl" ml={5} mt={5} src={users[0].avatar} alt={property.imageAlt} />
+        <Avatar
+          size="2xl"
+          ml={5}
+          mt={5}
+          src={staff.avatar}
+          alt={staff.imageAlt}
+        />
 
         <Box p="6">
           <Box d="flex" alignItems="baseline">
             <Badge borderRadius="full" px="2" colorScheme="green">
-              {users[0].firstName} {users[0].lastName}'S BONUS REPORT
+              {staff.firstName} {staff.lastName}'S BONUS REPORT
             </Badge>
-            {/* <Box
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="xs"
-              textTransform="uppercase"
-              ml="2"
-            >
-              Total bonus = 100
-            </Box> */}
           </Box>
           <Table variant="simple">
             <Thead>
@@ -79,12 +65,14 @@ function AirbnbExample(props) {
               </Tr>
             </Thead>
             <Tbody>
-              {users[0].workDays.map((day) => (
+              {staff.workDays.map((day) => (
                 <Tr>
                   <>
                     <Td>{Object.keys(day)[0]}</Td>
                     <Td isNumeric>{Object.values(day)[0]}</Td>
-                    <Td isNumeric>0</Td>
+                    <Td isNumeric>
+                      {formatCurrency(convertTimeToBonus(Object.values(day)[0]))}
+                    </Td>
                   </>
                 </Tr>
               ))}
@@ -92,7 +80,7 @@ function AirbnbExample(props) {
           </Table>
           <Box d="flex" mt="2" alignItems="center">
             <Box as="span" ml="2" color="gray.600" fontSize="sm">
-              Total bonus = 100
+              Total bonus = {formatCurrency(totalBonus(staff.workDays))}
             </Box>
           </Box>
         </Box>
