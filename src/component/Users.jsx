@@ -55,6 +55,7 @@ function Users(props) {
                   <AddTime
                     id={user?.id}
                     name={`${user?.firstName} ${user?.lastName}`}
+                    time={user.workDays}
                   />
                   <Link
                     to={{

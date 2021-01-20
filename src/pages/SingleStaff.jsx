@@ -22,7 +22,7 @@ import { convertTimeToBonus, formatCurrency, totalBonus } from "../utills";
 
 function AirbnbExample(props) {
   const staff = props.location.state;
-  
+
   return (
     <Container pt={5}>
       <IconButton
@@ -71,7 +71,9 @@ function AirbnbExample(props) {
                     <Td>{Object.keys(day)[0]}</Td>
                     <Td isNumeric>{Object.values(day)[0]}</Td>
                     <Td isNumeric>
-                      {formatCurrency(convertTimeToBonus(Object.values(day)[0]))}
+                      {formatCurrency(
+                        convertTimeToBonus(Object.values(day)[0])
+                      )}
                     </Td>
                   </>
                 </Tr>
