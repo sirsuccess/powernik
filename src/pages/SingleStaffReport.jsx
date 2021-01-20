@@ -1,26 +1,21 @@
 import {
   Box,
-  Image,
   Avatar,
   Badge,
   Table,
-  Button,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableCaption,
   Container,
   IconButton,
-  EmailIcon,
-  PhoneIcon,
 } from "@chakra-ui/react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { convertTimeToBonus, formatCurrency, totalBonus } from "../utills";
 
-function AirbnbExample(props) {
+function SingleStaffReport(props) {
   const staff = props.location.state;
 
   return (
@@ -52,7 +47,13 @@ function AirbnbExample(props) {
 
         <Box p="6">
           <Box d="flex" alignItems="baseline">
-            <Badge borderRadius="full" px="2" colorScheme="green">
+            <Badge
+              fontSize="x"
+              p={3}
+              borderRadius="full"
+              px="2"
+              colorScheme="green"
+            >
               {staff.firstName} {staff.lastName}'S BONUS REPORT
             </Badge>
           </Box>
@@ -60,7 +61,7 @@ function AirbnbExample(props) {
             <Thead>
               <Tr>
                 <Th>Days</Th>
-                <Th>Time</Th>
+                <Th isNumeric>Time</Th>
                 <Th isNumeric>Bonus</Th>
               </Tr>
             </Thead>
@@ -68,8 +69,10 @@ function AirbnbExample(props) {
               {staff.workDays.map((day) => (
                 <Tr>
                   <>
-                    <Td>{Object.keys(day)[0]}</Td>
-                    <Td isNumeric>{Object.values(day)[0]}</Td>
+                    <Td textTransform="uppercase">{Object.keys(day)[0]}</Td>
+                    <Td isNumeric>
+                      {Object.values(day)[0] ? Object.values(day)[0] : "00:00"}
+                    </Td>
                     <Td isNumeric>
                       {formatCurrency(
                         convertTimeToBonus(Object.values(day)[0])
@@ -81,7 +84,13 @@ function AirbnbExample(props) {
             </Tbody>
           </Table>
           <Box d="flex" mt="2" alignItems="center">
-            <Box as="span" ml="2" color="gray.600" fontSize="sm">
+            <Box
+              as="span"
+              ml="2"
+              color="gray.600"
+              fontSize="md"
+              fontWeight="bold"
+            >
               Total bonus = {formatCurrency(totalBonus(staff.workDays))}
             </Box>
           </Box>
@@ -91,4 +100,4 @@ function AirbnbExample(props) {
   );
 }
 
-export default withRouter(AirbnbExample);
+export default withRouter(SingleStaffReport);

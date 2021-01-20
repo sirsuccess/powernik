@@ -1,4 +1,4 @@
-import { Button, Container } from "@chakra-ui/react";
+import { Button, Container, Center  } from "@chakra-ui/react";
 import { Link, withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AddUser from "../component/AddUser";
@@ -9,6 +9,7 @@ function Home() {
 
   return (
     <Container pt={10}>
+      <Center fontSize="xl" fontWeight="bold" letterSpacing="wide" mb={15}>Powernik Nigeria Limited </Center>
       <AddUser />
       <Users />
       <Link to="/report">

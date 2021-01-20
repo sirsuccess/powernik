@@ -13,12 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { Link, withRouter } from "react-router-dom";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { formatCurrency, totalBonus } from "../utills";
 
-
 function Report(props) {
-    const {staffs} = useSelector(state => state.staffsStore);
+  const { staffs } = useSelector((state) => state.staffsStore);
   return (
     <Container maxW="xl" pt={5} centerContent="true">
       <IconButton
@@ -28,10 +27,14 @@ function Report(props) {
         icon={<ChevronLeftIcon />}
         onClick={props.history.goBack}
         mb={25}
-        pos="relative" top="0" left="34"
+        pos="relative"
+        top="0"
+        left="34"
       />
       <Table variant="simple" color="white">
-        <TableCaption placement="top" textStyle="h1">WEEKLY STAFF BONUS</TableCaption>
+        <TableCaption placement="top" textStyle="h1">
+          WEEKLY STAFF BONUS
+        </TableCaption>
         <Thead>
           <Tr>
             <Th></Th>
@@ -58,14 +61,18 @@ function Report(props) {
               <Td>{user.firstName}</Td>
               <Td>{user.lastName}</Td>
               {user.workDays.map((day) => (
-                <Td isNumeric>{Object.values(day)[0]}</Td>
+                <Td isNumeric>
+                  {Object.values(day)[0] ? Object.values(day)[0] : "00:00"}
+                </Td>
               ))}
               <Td isNumeric>{formatCurrency(totalBonus(user.workDays))}</Td>
               <Td isNumeric>
-                <Link to={{
-                      pathname: `/report/${user?.firstName}`,
-                      state: user,
-                    }}>
+                <Link
+                  to={{
+                    pathname: `/report/${user?.firstName}`,
+                    state: user,
+                  }}
+                >
                   <Button colorScheme="teal" size="sm" mt={2} ml={5}>
                     Report
                   </Button>

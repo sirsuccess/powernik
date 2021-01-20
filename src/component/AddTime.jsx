@@ -17,6 +17,8 @@ import {
 } from "@chakra-ui/react";
 import { addTimeRequest } from "../store/staffs/actions";
 import { filterSingleObject } from "../utills";
+
+
 function AddTime({ id, name, time }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -36,6 +38,7 @@ function AddTime({ id, name, time }) {
   const handleChange = (e) => {
     setStaff({ ...newStaffs, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = () => {
     const filterStaff = filterSingleObject(staffs, id);
 
@@ -67,7 +70,7 @@ function AddTime({ id, name, time }) {
 
     toast({
       title: "Success.",
-      description: `You have added time for ${filterStaff[0].firstName}`,
+      description: `You have successfuly added time for ${filterStaff[0].firstName}`,
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -90,7 +93,7 @@ function AddTime({ id, name, time }) {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>{name} time</DrawerHeader>
+            <DrawerHeader textTransform="uppercase">{name} time</DrawerHeader>
             <Box p={5}>
               <FormControl>
                 <FormLabel>Monday</FormLabel>
