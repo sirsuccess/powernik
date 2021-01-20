@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { addTimeRequest } from "../store/staffs/actions";
 import { filterSingleObject } from "../utills";
-function AddTime({ id, name }) {
+function AddTime({ id, name, time }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const initialRef = React.useRef();
@@ -26,11 +26,11 @@ function AddTime({ id, name }) {
 
   const { staffs } = useSelector((state) => state.staffsStore);
   const [newStaffs, setStaff] = useState({
-    monday: "",
-    tuesday: "",
-    wednesday: "",
-    thursday: "",
-    friday: "",
+    monday: time[0]["monday"],
+    tuesday: time[1]["tuesday"],
+    wednesday: time[2]["wednesday"],
+    thursday: time[3]["thursday"],
+    friday: time[4]["friday"],
   });
 
   const handleChange = (e) => {
@@ -99,6 +99,7 @@ function AddTime({ id, name }) {
                   placeholder="monday"
                   name="monday"
                   type="time"
+                  value={newStaffs.monday}
                   onChange={handleChange}
                 />
               </FormControl>
@@ -108,6 +109,7 @@ function AddTime({ id, name }) {
                   placeholder="Tuesday"
                   type="time"
                   name="tuesday"
+                  value={newStaffs.tuesday}
                   onChange={handleChange}
                 />
               </FormControl>
@@ -117,6 +119,7 @@ function AddTime({ id, name }) {
                   placeholder="Wednesday"
                   type="time"
                   name="wednesday"
+                  value={newStaffs.wednesday}
                   onChange={handleChange}
                 />
               </FormControl>
@@ -124,6 +127,7 @@ function AddTime({ id, name }) {
                 <FormLabel>Thurday</FormLabel>
                 <Input
                   placeholder="Thurday"
+                  value={newStaffs.thursday}
                   type="time"
                   name="thursday"
                   onChange={handleChange}
@@ -133,6 +137,7 @@ function AddTime({ id, name }) {
                 <FormLabel>Friday</FormLabel>
                 <Input
                   placeholder="Friday"
+                  value={newStaffs.friday}
                   type="time"
                   name="friday"
                   onChange={handleChange}

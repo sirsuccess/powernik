@@ -1,8 +1,7 @@
 import * as actions from "./actionsTypes";
-import users from "../../utills/users";
 
 const defaultState = {
-  staffs: users,
+  staffs: [],
   loading: false,
 };
 
@@ -14,20 +13,20 @@ export default (state = defaultState, action) => {
       let staffs = [action.data, ...state.staffs];
       return { staffs, loading: false };
     case actions.DELETE_STAFF_REQUEST:
-      const staffss = state.staffs.filter((user) => {
+      const deletStaff = state.staffs.filter((user) => {
         return user.id !== action.data;
       });
-      return { staffs: staffss, loading: false };
+      return { staffs: deletStaff, loading: false };
     case actions.EDIT_STAFF_REQUEST:
       return { ...state, loading: false, shortlisted: action.data };
     case actions.ADD_TIME_REQUEST:
-      const staffsss = state.staffs.map((user) => {
+      const timeStaff = state.staffs.map((user) => {
         if (user.id === action.data.id) {
           return action.data;
         }
         return user;
       });
-      return { staffs: staffsss, loading: false } ;
+      return { staffs: timeStaff, loading: false };
     default:
       return state;
   }
